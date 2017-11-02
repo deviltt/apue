@@ -1,7 +1,8 @@
 #include "apue.h"
 int main()
 {
-	char name[L_tmpnam];
+	char name[L_tmpnam],line[MAXLINE];
+	FILE *fp;
 	printf("%s\n",tmpnam(NULL));
 	
 	tmpnam(name);
@@ -11,7 +12,7 @@ int main()
 		err_sys("tmpfile error");
 	fputs("one line of output\n",fp);
 	rewind(fp);
-	if(fgets() == NULL)
+	if(fgets(line,sizeof(line),fp) == NULL)
 		err_sys("fgets error");
 	fputs(line,stdout);
 
