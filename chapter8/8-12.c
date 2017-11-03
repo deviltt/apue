@@ -10,13 +10,13 @@ int main(void)
 
 	if((pid = fork()) < 0)
 		err_sys("fork error\n");
-	else if(pid == 0){
-		WAIT_PARENT();
+	else if(pid ==0){
 		charactatime("output from child\n");
+		TELL_PARENT(pid);
 	}
 	else{
+		WAIT_CHILD();
 		charactatime("output from parent\n");
-		TELL_CHILD(pid);
 	}
 	
 	exit(0);
