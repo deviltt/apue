@@ -11,15 +11,17 @@ int main(void)
 	if((pid = fork()) < 0)
 		err_sys("fork error\n");
 	else if(pid ==0){
+		WAIT_PARENT();
 		charactatime("output from child\n");
-		TELL_PARENT(pid);
+		TELL_PARENT(getpid());
 	}
 	else{
-		WAIT_CHILD();
 		charactatime("output from parent\n");
+		TELL_CHILD(pid);
+		WAIT_CHILD();
 	}
-	
-	exit(0);
+	printf("end\n");
+	return 0;
 }
 
 void charactatime(char *str)
